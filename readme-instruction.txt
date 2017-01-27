@@ -36,6 +36,8 @@ Commands:
 		Attack monster, monster name is mentioned every time the player enters a room, or call "look"
 	-attack <monster name> with <item>:
 		Attack ghost type monster, similar idea as the normal attack function
+	-spare <monster name>:
+		Spare a monster if its hp is below your hp
 	-eat <item name>:
 		Consume whatever the user inputs, if <item name> is potion (and user has potion(s)), restore user's HP
 	-go <direcion>:
