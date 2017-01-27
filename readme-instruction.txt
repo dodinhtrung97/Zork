@@ -24,10 +24,18 @@ Commands:
 	
 	-help:
 		Bring up basic movement rules
-	-look:
+	-look around:
 		Look around the room, brings up certain elements (which direction can the player go, what's inside the room)
+	-look at <object>:
+		Print object description
+	-pick <item>:
+		pick any item that is 1 or less step away from the player
+	-drop <item>:
+		Self explanatory
 	-attack <monster name>:
 		Attack monster, monster name is mentioned every time the player enters a room, or call "look"
+	-attack <monster name> with <item>:
+		Attack ghost type monster, similar idea as the normal attack function
 	-eat <item name>:
 		Consume whatever the user inputs, if <item name> is potion (and user has potion(s)), restore user's HP
 	-go <direcion>:
@@ -36,7 +44,7 @@ Commands:
 		Print player's stat including: HP, Number of potions, attack, defend, equipments status
 	-key:
 		Print the current pieces of paper the player has
-		Print the current story collected and formed by the current pieces of paper possess
+		Print the current story collected and formed by the current pieces of paper possessed
 	-map:
 		Print map and player's location.
 		Print location of key items within the map if discovered through sparing monsters.
