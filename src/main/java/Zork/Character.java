@@ -3,27 +3,46 @@ package Zork;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Trung on 1/30/2017.
  */
 public class Character {
 
-    protected int[] currentPosition;
+    protected GameMap.Coordination currentPosition;
     protected int currentHp;
     protected int maxHp;
     protected int damage;
     protected int defend;
     protected List<String> inventory = new ArrayList<>();
 
-    public Character(){
+    /* All GETS methods */
+    public GameMap.Coordination getCurrentPosition(){ return this.currentPosition; }
 
-        this.currentPosition = initCharacterPosition();
-        this.currentHp = 100;
-        this.maxHp = 100;
-        this.damage = 10;
-        this.defend = 10;
-        this.inventory = new ArrayList<>();
+    public int getCurrentHp(){ return this.currentHp; }
+
+    public int getMaxHp(){ return this.maxHp; }
+
+    public int getDamage(){ return this.damage; }
+
+    public int getDefend(){ return this.defend; }
+
+    public List<String> getInventory(){ return this.inventory; }
+
+
+    /* All SETS methods */
+    public void setCurrentPosition(int x, int y){
+        GameMap.Coordination newCoordinate = new GameMap.Coordination(x,y);
+
+        this.currentPosition = newCoordinate;
     }
+    public void setMaxHp(int maxHp){ this.maxHp = maxHp; }
+
+    public void setCurrentHp(int currentHp){ this.currentHp = currentHp; }
+
+    public void setDamage(int damage){ this.damage = damage; }
+
+    public void setDefend(int defend){ this.defend = defend; }
 
     public int[] initCharacterPosition(){
 
@@ -44,22 +63,25 @@ public class Character {
 
     public void go(String direction){
 
+        int y = getCurrentPosition().y;
+        int x = getCurrentPosition().x;
+
         switch (direction) {
             case "north":
-                if (isLegalMove(currentPosition[1]--)){
-                    currentPosition[1]--;
+                if ( isLegalMove(y - 1) ){
+                    setCurrentPosition(x, y-1);
                 } else { System.out.print("Can't move to that direction"); }
             case "south":
-                if (isLegalMove(currentPosition[1]++)){
-                    currentPosition[1]++;
+                if (isLegalMove(y + 1)){
+                    setCurrentPosition(x, y+1);
                 } else { System.out.print("Can't move to that direction"); }
             case "east":
-                if (isLegalMove(currentPosition[0]--)){
-                    currentPosition[0]--;
+                if (isLegalMove(x - 1)){
+                    setCurrentPosition(x-1, y);
                 } else { System.out.print("Can't move to that direction"); }
             case "west":
-                if (isLegalMove(currentPosition[0]++)){
-                    currentPosition[0]++;
+                if (isLegalMove(x + 1)){
+                    setCurrentPosition(x+1, y);
                 } else { System.out.print("Can't move to that direction"); }
         }
     }
@@ -73,10 +95,15 @@ public class Character {
 
         switch ( monster.getType() ) {
             case "normal":
-                monster.setHp(monster.getHp() - damage);
+                monster.setHp(monster.getHp() - getDamage());
+                
+                /* Monster retaliation */
+                setCurrentHp(getCurrentHp() - monster.getDamage());
+                System.out.println("Attacked " + monster.getName());
             case "ghost":
                 System.out.print("Can't attack ghost with bare hands");
         }
+
 
         if ( monster.getHp()==0 ){ battle.setBattleStatus(false); }
     }

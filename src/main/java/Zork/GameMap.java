@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class GameMap {
 
-    public class Coordination{
-        final int x;
-        final int y;
+    public static class Coordination{
+        protected int x;
+        protected int y;
 
         Coordination(int x, int y) {
             this.x = x;

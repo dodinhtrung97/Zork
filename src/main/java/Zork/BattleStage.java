@@ -11,6 +11,7 @@ public class BattleStage {
 
     public int battleCount = 0;
     final Random random = new Random();
+    BattleStatus battleStatus = new BattleStatus();
 
     public int randomChance(){
 
@@ -53,7 +54,7 @@ public class BattleStage {
 
         @Override
         public void update(Observable e, Object arg){
-            BattleStatus battleStatus = new BattleStatus();
+            boolean status = battleStatus.getBattleStatus();
             battleCount++;
 
             Monster monster = battleStatus.getMonster();
@@ -69,11 +70,12 @@ public class BattleStage {
                     int potentialDamage = monster.getDamage() * 5;
                     int randomChance = randomChance();
 
-                    if (randomChance == 1) { character.currentHp -= potentialDamage; }
+                    if (randomChance == 1) {
+                        character.setCurrentHp(character.getCurrentHp() - potentialDamage);
+                    }
                 }
             }
         }
     }
-
 
 }
