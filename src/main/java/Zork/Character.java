@@ -8,14 +8,15 @@ import java.util.List;
  */
 public class Character {
 
-    int[] currentPosition;
-    int currentHp;
-    int maxHp;
-    int damage;
-    int defend;
-    List<String> inventory = new ArrayList<>();
+    protected int[] currentPosition;
+    protected int currentHp;
+    protected int maxHp;
+    protected int damage;
+    protected int defend;
+    protected List<String> inventory = new ArrayList<>();
 
     public Character(){
+
         this.currentPosition = initCharacterPosition();
         this.currentHp = 100;
         this.maxHp = 100;
@@ -25,6 +26,7 @@ public class Character {
     }
 
     public int[] initCharacterPosition(){
+
         int[] characterPosition = new int[2];
         characterPosition[0] = 0;
         characterPosition[1] = 0;
@@ -33,6 +35,7 @@ public class Character {
     }
 
     public boolean isLegalMove(int position){
+
         if (position < 0 || position > 3){
             return false;
         }
@@ -40,6 +43,7 @@ public class Character {
     }
 
     public void go(String direction){
+
         switch (direction) {
             case "north":
                 if (isLegalMove(currentPosition[1]--)){
@@ -60,15 +64,24 @@ public class Character {
         }
     }
 
-    public void attack(Monster monster, Weapon weapon){
+    public void attack(Monster monster){
 
         BattleStage.BattleStatus battle = new BattleStage.BattleStatus();
         battle.setBattleStatus(true);
+        battle.setMonster(monster);
+        battle.setCharacter(this);
 
-        switch (monster.type) {
-            case "normal": monster.hp -= damage;
+        switch ( monster.getType() ) {
+            case "normal":
+                monster.setHp(monster.getHp() - damage);
             case "ghost":
-                if (weapon == monster.)
+                System.out.print("Can't attack ghost with bare hands");
         }
+
+        if ( monster.getHp()==0 ){ battle.setBattleStatus(false); }
+    }
+
+    public void attackWith(Monster monster, Weapon weapon){
+
     }
 }

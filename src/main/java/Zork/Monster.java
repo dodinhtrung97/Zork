@@ -15,13 +15,32 @@ public class Monster {
     protected String name;
     protected List<String> items = new ArrayList<>();
 
-    protected Monster(int hp, int damage, String type, String description, String name, List<String> items){
-        this.hp = hp;
-        this.damage = damage;
-        this.type = type;
-        this.description = description;
-        this.name = name;
-        this.items = items;
-    }
+    /* All GETS methods */
+    public int getHp(){ return this.hp; }
+
+    public int getDamage(){ return this.damage; }
+
+    public String getType(){ return this.type; }
+
+    public String getDescription(){ return this.description; }
+
+    public String getName(){ return this.name; }
+
+    public List<String> getItem(){ return this.items; }
+
+
+    /* All SETS methods */
+    public void setItems(ArrayList<String> items){ this.items = items; }
+
+    public void setHp(int hp){ this.hp = hp; }
+
+    public void setName(String name){ this.name = name; }
+
+    public void setDescription(String description){ this.description = description; }
+
+    public void setType(String type){ this.type = type; }
+
+    public void setDamage(int damage){ this.damage = damage; }
+
 }
 

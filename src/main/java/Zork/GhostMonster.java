@@ -9,9 +9,8 @@ class GhostMonster extends Monster {
 
     String isWeakTo;
 
-    public GhostMonster(int hp, int damage, String description, String name, List<String> items, String isWeakTo){
-        super(hp, damage, "ghost", description, name, items);
-        this.isWeakTo = isWeakTo;
-        
-    }
+    public String getIsWeakTo(){ return this.isWeakTo; }
+
+    public void setIsWeakTo(){ this.isWeakTo = isWeakTo; }
+
 }

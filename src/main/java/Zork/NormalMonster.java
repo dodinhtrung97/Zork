@@ -7,16 +7,12 @@ import java.util.List;
  */
 public class NormalMonster extends Monster {
 
-    public NormalMonster(int hp, int damage, String description, String name, List<String> items){
-        super(hp, damage, "normal", description, name, items);
-    }
-
     public void retaliate(NormalMonster monster, Character character, String playerCommand){
 
-        String conditionForHostile = "attack" + monster.name;
+        String conditionForHostile = "attack" + monster.getName();
 
         if (playerCommand.equals(conditionForHostile)){
-            character.currentHp -= monster.damage;
+            character.currentHp -= monster.getDamage();
         }
     }
 }
