@@ -36,6 +36,7 @@ public class Character {
 
         this.currentPosition = newCoordinate;
     }
+
     public void setMaxHp(int maxHp){ this.maxHp = maxHp; }
 
     public void setCurrentHp(int currentHp){ this.currentHp = currentHp; }
@@ -43,15 +44,6 @@ public class Character {
     public void setDamage(int damage){ this.damage = damage; }
 
     public void setDefend(int defend){ this.defend = defend; }
-
-    public int[] initCharacterPosition(){
-
-        int[] characterPosition = new int[2];
-        characterPosition[0] = 0;
-        characterPosition[1] = 0;
-
-        return characterPosition;
-    }
 
     public boolean isLegalMove(int position){
 
@@ -70,19 +62,30 @@ public class Character {
             case "north":
                 if ( isLegalMove(y - 1) ){
                     setCurrentPosition(x, y-1);
-                } else { System.out.print("Can't move to that direction"); }
+                } else {
+                    System.out.print("Can't move north");
+                } break;
+
             case "south":
                 if (isLegalMove(y + 1)){
                     setCurrentPosition(x, y+1);
-                } else { System.out.print("Can't move to that direction"); }
+                } else {
+                    System.out.print("Can't move south");
+                } break;
+
             case "east":
+                System.out.println(direction);
                 if (isLegalMove(x - 1)){
                     setCurrentPosition(x-1, y);
-                } else { System.out.print("Can't move to that direction"); }
+                } else {
+                    System.out.print("Can't move east");
+                } break;
+
             case "west":
                 if (isLegalMove(x + 1)){
                     setCurrentPosition(x+1, y);
-                } else { System.out.print("Can't move to that direction"); }
+                } else { System.out.print("Can't move west");
+                } break;
         }
     }
 
@@ -106,9 +109,5 @@ public class Character {
 
 
         if ( monster.getHp()==0 ){ battle.setBattleStatus(false); }
-    }
-
-    public void attackWith(Monster monster, Weapon weapon){
-
     }
 }

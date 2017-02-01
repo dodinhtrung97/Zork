@@ -10,8 +10,8 @@ import java.util.Map;
 public class GameMap {
 
     public static class Coordination{
-        protected int x;
-        protected int y;
+        public int x;
+        public int y;
 
         Coordination(int x, int y) {
             this.x = x;
