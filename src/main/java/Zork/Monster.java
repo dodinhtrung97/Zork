@@ -13,7 +13,7 @@ public class Monster {
     protected String type;
     protected String description;
     protected String name;
-    protected List<String> items = new ArrayList<>();
+    protected Item items = new Item();
 
     /* All GETS methods */
     public int getHp(){ return this.hp; }
@@ -26,21 +26,21 @@ public class Monster {
 
     public String getName(){ return this.name; }
 
-    public List<String> getItem(){ return this.items; }
+    public Item getItem(){ return this.items; }
 
 
     /* All SETS methods */
-    public void setItems(ArrayList<String> items){ this.items = items; }
+    public void setName(String name){ this.name = name; }
+
+    public void setItems(Item items){ this.items = items; }
 
     public void setHp(int hp){ this.hp = hp; }
 
-    public void setName(String name){ this.name = name; }
+    public void setDamage(int damage){ this.damage = damage; }
 
     public void setDescription(String description){ this.description = description; }
 
     public void setType(String type){ this.type = type; }
-
-    public void setDamage(int damage){ this.damage = damage; }
 
 }
 

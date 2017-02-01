@@ -12,6 +12,8 @@ public class Item {
     protected String description;
     protected String name;
 
+    ArrayList<Item> allItems = new ArrayList<>();
+
     /* All GETS methods */
 
     public String getType(){ return this.type; }

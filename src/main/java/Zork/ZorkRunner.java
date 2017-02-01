@@ -11,6 +11,9 @@ public class ZorkRunner {
 
         Scanner in = new Scanner(System.in);
 
+        ItemFactory itemFactory = new ItemFactory();
+        itemFactory.setAllItems();
+
         /* Basic Character Setup  */
         Character player = new Character();
         player.setCurrentPosition(0,0);

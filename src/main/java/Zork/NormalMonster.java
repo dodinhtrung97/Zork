@@ -1,18 +1,14 @@
 package Zork;
 
-import java.util.List;
-
 /**
  * Created by Trung on 1/30/2017.
  */
 public class NormalMonster extends Monster {
 
-    public void retaliate(NormalMonster monster, Character character, String playerCommand){
+    /* Normal monsters can't be killed with weapon */
+    public boolean playerIsEquipped(Character player){
 
-        String conditionForHostile = "attack" + monster.getName();
-
-        if (playerCommand.equals(conditionForHostile)){
-            character.currentHp -= monster.getDamage();
-        }
+        if (player.getEquippedItem() != null){ return false; }
+        else { return true; }
     }
 }

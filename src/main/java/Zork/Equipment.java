@@ -3,7 +3,7 @@ package Zork;
 /**
  * Created by Trung on 2/2/2017.
  */
-public class Equipment {
+public class Equipment extends Item{
 
     protected int defendPotential;
     protected int attackPotential;

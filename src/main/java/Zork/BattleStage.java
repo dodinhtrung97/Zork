@@ -25,6 +25,7 @@ public class BattleStage {
         private Character character;
         private Monster monster;
 
+
         public void setBattleStatus(boolean isInBattle){
             synchronized (this) {
                 this.isInBattle = isInBattle;

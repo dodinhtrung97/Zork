@@ -3,7 +3,6 @@ package Zork;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by Trung on 1/30/2017.
  */
@@ -14,6 +13,7 @@ public class Character {
     protected int maxHp;
     protected int damage;
     protected int defend;
+    protected Equipment equippedItem;
     protected List<String> inventory = new ArrayList<>();
 
     /* All GETS methods */
@@ -27,6 +27,8 @@ public class Character {
 
     public int getDefend(){ return this.defend; }
 
+    public Equipment getEquippedItem(){ return this.equippedItem; }
+
     public List<String> getInventory(){ return this.inventory; }
 
 
@@ -37,6 +39,12 @@ public class Character {
         this.currentPosition = newCoordinate;
     }
 
+    public void setEquippedItem(Equipment item){
+        setDamage(getDamage() + item.attackPotential);
+
+        this.equippedItem = item;
+    }
+
     public void setMaxHp(int maxHp){ this.maxHp = maxHp; }
 
     public void setCurrentHp(int currentHp){ this.currentHp = currentHp; }
@@ -44,6 +52,8 @@ public class Character {
     public void setDamage(int damage){ this.damage = damage; }
 
     public void setDefend(int defend){ this.defend = defend; }
+
+
 
     public boolean isLegalMove(int position){
 
@@ -65,14 +75,12 @@ public class Character {
                 } else {
                     System.out.print("Can't move north");
                 } break;
-
             case "south":
                 if (isLegalMove(y + 1)){
                     setCurrentPosition(x, y+1);
                 } else {
                     System.out.print("Can't move south");
                 } break;
-
             case "east":
                 System.out.println(direction);
                 if (isLegalMove(x - 1)){
@@ -80,13 +88,24 @@ public class Character {
                 } else {
                     System.out.print("Can't move east");
                 } break;
-
             case "west":
                 if (isLegalMove(x + 1)){
                     setCurrentPosition(x+1, y);
                 } else { System.out.print("Can't move west");
                 } break;
         }
+    }
+
+    public void equip(Equipment item){ setEquippedItem(item); }
+
+    public void unequip(){ setEquippedItem(null); }
+
+    public void use(Potion potion){
+        int heal = potion.getHealPotential();
+        int threshHold = getCurrentHp() + heal;
+
+        if  ((threshHold) > getMaxHp()) { setCurrentHp(getMaxHp()); }
+        else { setCurrentHp(threshHold); }
     }
 
     public void attack(Monster monster){
@@ -96,18 +115,35 @@ public class Character {
         battle.setMonster(monster);
         battle.setCharacter(this);
 
-        switch ( monster.getType() ) {
-            case "normal":
-                monster.setHp(monster.getHp() - getDamage());
-                
-                /* Monster retaliation */
-                setCurrentHp(getCurrentHp() - monster.getDamage());
-                System.out.println("Attacked " + monster.getName());
+        String monsterType = monster.getType();
+        int potentialTakenDamage = getCurrentHp() - monster.getDamage() + getDefend();
+
+        switch (monsterType) {
             case "ghost":
-                System.out.print("Can't attack ghost with bare hands");
+                boolean ghostFlag = ((GhostMonster) monster).playerIsEquipped(this);
+                if (ghostFlag) {
+                    monster.setHp(monster.getHp() - getDamage());
+                    /* Monster retaliation */
+                    setCurrentHp(potentialTakenDamage);
+                    System.out.println("Attacked " + monster.getName());
+                } break;
+            case "normal":
+                boolean normalFlag = ((NormalMonster) monster).playerIsEquipped(this);
+                if (normalFlag) {
+                    monster.setHp(monster.getHp() - getDamage());
+                    /* Monster retaliation */
+                    setCurrentHp(potentialTakenDamage);
+                    System.out.println("Attacked " + monster.getName());
+                } break;
         }
-
-
-        if ( monster.getHp()==0 ){ battle.setBattleStatus(false); }
+        /* If battle's won */
+        if ( monster.getHp()==0 ){
+            /* Add stat bonus */
+            setMaxHp(getMaxHp() + 10);
+            setDamage(getDamage() + 5);
+            setDefend(getDefend() + 2);
+            /* Set battle state to false */
+            battle.setBattleStatus(false);
+        }
     }
 }
