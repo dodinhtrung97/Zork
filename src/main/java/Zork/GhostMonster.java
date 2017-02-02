@@ -5,11 +5,11 @@ package Zork;
  */
 class GhostMonster extends Monster {
 
-    Equipment isWeakTo;
+    String isWeakTo;
 
-    public Equipment getIsWeakTo(){ return this.isWeakTo; }
+    public String getIsWeakTo(){ return this.isWeakTo; }
 
-    public void setIsWeakTo(Equipment isWeakTo){ this.isWeakTo = isWeakTo; }
+    public void setIsWeakTo(String isWeakTo){ this.isWeakTo = isWeakTo; }
 
     public boolean playerIsEquipped(Character player){
 

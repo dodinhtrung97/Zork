@@ -14,7 +14,7 @@ public class Character {
     protected int damage;
     protected int defend;
     protected Equipment equippedItem;
-    protected List<String> inventory = new ArrayList<>();
+    protected List<Item> inventory = new ArrayList<>();
 
     /* All GETS methods */
     public GameMap.Coordination getCurrentPosition(){ return this.currentPosition; }
@@ -29,7 +29,7 @@ public class Character {
 
     public Equipment getEquippedItem(){ return this.equippedItem; }
 
-    public List<String> getInventory(){ return this.inventory; }
+    public List<Item> getInventory(){ return this.inventory; }
 
 
     /* All SETS methods */
@@ -40,7 +40,8 @@ public class Character {
     }
 
     public void setEquippedItem(Equipment item){
-        setDamage(getDamage() + item.attackPotential);
+        setDamage(getDamage() + item.getDamagePotential());
+        setDefend(getDefend() + item.getDefendPotential());
 
         this.equippedItem = item;
     }
@@ -53,10 +54,11 @@ public class Character {
 
     public void setDefend(int defend){ this.defend = defend; }
 
+    public void setInventory(List<Item> inventory){ this.inventory = inventory; }
 
 
     public boolean isLegalMove(int position){
-
+        /* If move is not in legal path then is wall */
         if (position < 0 || position > 3){
             return false;
         }
@@ -98,14 +100,27 @@ public class Character {
 
     public void equip(Equipment item){ setEquippedItem(item); }
 
-    public void unequip(){ setEquippedItem(null); }
+    public void unequip(Equipment item){
+        /* Count for both armor and weapon */
+        setDefend(getDefend() - item.getDefendPotential());
+        setDamage(getDamage() - item.getDamagePotential());
+    }
 
     public void use(Potion potion){
+
         int heal = potion.getHealPotential();
         int threshHold = getCurrentHp() + heal;
 
         if  ((threshHold) > getMaxHp()) { setCurrentHp(getMaxHp()); }
         else { setCurrentHp(threshHold); }
+    }
+
+    public void drop(Item item){
+
+        if (getInventory().contains(item.getName())) {
+            getInventory().remove(item);
+            setInventory(getInventory());
+        } else { System.out.println("There's nothing to drop"); }
     }
 
     public void attack(Monster monster){

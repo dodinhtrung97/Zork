@@ -14,5 +14,5 @@ public class Equipment extends Item{
 
     public int getDefendPotential(){ return this.defendPotential; }
 
-    public int getAttackPotential(){ return this.attackPotential; }
+    public int getDamagePotential(){ return this.attackPotential; }
 }
