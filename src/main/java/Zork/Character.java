@@ -104,6 +104,8 @@ public class Character {
         /* Count for both armor and weapon */
         setDefend(getDefend() - item.getDefendPotential());
         setDamage(getDamage() - item.getDamagePotential());
+
+        setEquippedItem(null);
     }
 
     public void use(Potion potion){
@@ -138,6 +140,7 @@ public class Character {
                 boolean ghostFlag = ((GhostMonster) monster).playerIsEquipped(this);
                 if (ghostFlag) {
                     monster.setHp(monster.getHp() - getDamage());
+
                     /* Monster retaliation */
                     setCurrentHp(potentialTakenDamage);
                     System.out.println("Attacked " + monster.getName());
@@ -146,6 +149,7 @@ public class Character {
                 boolean normalFlag = ((NormalMonster) monster).playerIsEquipped(this);
                 if (normalFlag) {
                     monster.setHp(monster.getHp() - getDamage());
+
                     /* Monster retaliation */
                     setCurrentHp(potentialTakenDamage);
                     System.out.println("Attacked " + monster.getName());
@@ -153,12 +157,16 @@ public class Character {
         }
         /* If battle's won */
         if ( monster.getHp()==0 ){
+
             /* Add stat bonus */
             setMaxHp(getMaxHp() + 10);
             setDamage(getDamage() + 5);
             setDefend(getDefend() + 2);
+
             /* Set battle state to false */
             battle.setBattleStatus(false);
+            battle.setMonster(null);
+            battle.setCharacter(null);
         }
     }
 }
