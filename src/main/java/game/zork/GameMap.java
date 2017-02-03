@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Trung on 1/30/2017.
  */
-public class Path {
+public class GameMap {
 
     public static class Coordination{
         public int x;
@@ -15,6 +15,15 @@ public class Path {
             this.x = x;
             this.y = y;
         }
+
+        @Override
+        public boolean equals(Object a){
+            if (a instanceof Coordination) {
+                return this.x == ((Coordination) a).x && this.y == ((Coordination) a).y;
+            }
+            return false;
+        }
+
     }
 
     protected Map<Coordination, ArrayList<Object>> firstMap = new HashMap<>();
@@ -165,15 +174,17 @@ public class Path {
         /* Note that all maps is of size 4x4 */
         Map<Coordination, ArrayList<Object>> currentMap = player.getLevelMap();
 
+        ArrayList<Coordination> allLegalPath = new ArrayList<>(currentMap.keySet());
+
         for (int i=0; i < 4; i++){
             for (int j=0; j < 4; j++){
 
                 Coordination playerPosition = player.getCurrentPosition();
-                Coordination thisPosition = new Coordination(i,j);
+                Coordination thisPosition = new Coordination(j,i);
 
-                if (thisPosition.x == playerPosition.x && thisPosition.y == playerPosition.y) {
+                if (thisPosition.equals(playerPosition)) {
                     System.out.print("x ");
-                } else if (currentMap.keySet().contains(thisPosition)){
+                } else if (allLegalPath.contains(thisPosition)){
                     System.out.print("v ");
                 } else {
                     System.out.print("- ");

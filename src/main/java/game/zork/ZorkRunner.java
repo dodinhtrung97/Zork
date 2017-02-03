@@ -14,10 +14,10 @@ public class ZorkRunner {
         Character player = new Character();
         ItemFactory itemFactory = new ItemFactory();
         MonsterFactory monsterFactory = new MonsterFactory();
-        Path path = new Path();
+        GameMap gameMap = new GameMap();
 
         ZorkInitialize init = new ZorkInitialize();
-        init.setZorkInit(player, itemFactory, monsterFactory, path);
+        init.setZorkInit(player, itemFactory, monsterFactory, gameMap);
 
         while(true){
 
@@ -86,7 +86,7 @@ public class ZorkRunner {
                         }
                     } break;
                 case "map":
-                    path.drawMap(player);
+                    gameMap.drawMap(player);
                     break;
                 case "go":
                     player.go(argument);

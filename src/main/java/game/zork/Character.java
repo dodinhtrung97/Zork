@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Character {
 
-    protected Path.Coordination currentPosition;
+    protected GameMap.Coordination currentPosition;
     protected int level;
     protected int currentHp;
     protected int maxHp;
@@ -17,7 +17,7 @@ public class Character {
     protected List<Item> inventory = new ArrayList<>();
 
     /* All GETS methods */
-    public Path.Coordination getCurrentPosition(){ return this.currentPosition; }
+    public GameMap.Coordination getCurrentPosition(){ return this.currentPosition; }
 
     public int getLevel(){ return this.level; }
 
@@ -33,14 +33,18 @@ public class Character {
 
     public List<Item> getInventory(){ return this.inventory; }
 
-    public Map<Path.Coordination, ArrayList<Object>> getLevelMap(){
-        Path path = new Path();
-        Map<Path.Coordination, ArrayList<Object>> notGoingToHappen = new HashMap<>();
+    public Map<GameMap.Coordination, ArrayList<Object>> getLevelMap(){
+
+        GameMap gameMap = new GameMap();
+        ZorkInitialize zorkInitialize = new ZorkInitialize();
+        Map<GameMap.Coordination, ArrayList<Object>> notGoingToHappen = new HashMap<>();
+
+        ArrayList<Map<GameMap.Coordination, ArrayList<Object>>> allMaps = zorkInitialize.initGameMaps(gameMap);
 
         switch (getLevel()){
-            case 1: return path.firstMap;
-            case 2: return path.secondMap;
-            case 3: return path.thirdMap;
+            case 1: return allMaps.get(0);
+            case 2: return allMaps.get(1);
+            case 3: return allMaps.get(2);
         }
 
         return notGoingToHappen;
@@ -48,7 +52,7 @@ public class Character {
 
     /* All SETS methods */
     public void setCurrentPosition(int x, int y){
-        Path.Coordination newCoordinate = new Path.Coordination(x,y);
+        GameMap.Coordination newCoordinate = new GameMap.Coordination(x,y);
 
         this.currentPosition = newCoordinate;
     }
@@ -81,12 +85,13 @@ public class Character {
      * @param position current character position in custom (Coordination) type
      * @return boolean of whether or not a requested movement is legal
      */
-    public boolean isLegalMove(Path.Coordination position){
+    public boolean isLegalMove(GameMap.Coordination position){
 
-        Map<Path.Coordination, ArrayList<Object>> levelMap = new HashMap<>();
+        Map<GameMap.Coordination, ArrayList<Object>> levelMap = getLevelMap();
+        ArrayList<GameMap.Coordination> checkLegal = new ArrayList<>(levelMap.keySet());
 
         /* If requested position is within legal path */
-        if (levelMap.keySet().contains(position)){ return true; }
+        if (checkLegal.contains(position)){ return true; }
         else { return false; }
     }
 
@@ -97,8 +102,8 @@ public class Character {
      */
     public boolean itemExist(Item item){
 
-        Map<Path.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
-        Path.Coordination currentPosition = getCurrentPosition();
+        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
+        GameMap.Coordination currentPosition = getCurrentPosition();
 
         if (mapLevel.get(currentPosition).contains(item)) { return true; }
         else { return false; }
@@ -113,7 +118,7 @@ public class Character {
             setDefend(getDefend() + 2);
 
             /* Drop items and delete monster from current position */
-            Map<Path.Coordination, ArrayList<Object>> thisMap = getLevelMap();
+            Map<GameMap.Coordination, ArrayList<Object>> thisMap = getLevelMap();
             ArrayList<Object> thisPositionItem = thisMap.get(getCurrentPosition());
 
             if (monster.getItem() != null){ thisPositionItem.add(monster.getItem()); }
@@ -130,8 +135,8 @@ public class Character {
      */
     public boolean monsterExist(Monster monster){
 
-        Map<Path.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
-        Path.Coordination currentPosition = getCurrentPosition();
+        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
+        GameMap.Coordination currentPosition = getCurrentPosition();
 
         if (mapLevel.get(currentPosition).contains(monster)) { return true; }
         else { return false; }
@@ -149,32 +154,32 @@ public class Character {
 
         switch (direction) {
             case "north":
-                if ( isLegalMove(new Path.Coordination(x,y - 1)) ){
+                if ( isLegalMove(new GameMap.Coordination(x,y - 1)) ){
                     setCurrentPosition(x, y-1);
                 } else {
                     System.out.print("Can't move north");
                 } break;
             case "south":
-                if ( isLegalMove(new Path.Coordination(x,y + 1)) ){
+                if ( isLegalMove(new GameMap.Coordination(x,y + 1)) ){
                     setCurrentPosition(x, y+1);
                 } else {
                     System.out.print("Can't move south");
                 } break;
             case "east":
                 System.out.println(direction);
-                if ( isLegalMove(new Path.Coordination(x - 1,y)) ){
+                if ( isLegalMove(new GameMap.Coordination(x - 1,y)) ){
                     setCurrentPosition(x-1, y);
                 } else {
                     System.out.print("Can't move east");
                 } break;
             case "west":
-                if ( isLegalMove(new Path.Coordination(x + 1,y)) ){
+                if ( isLegalMove(new GameMap.Coordination(x + 1,y)) ){
                     setCurrentPosition(x+1, y);
                 } else { System.out.print("Can't move west");
                 } break;
         }
 
-        Path.Coordination newPosition = getCurrentPosition();
+        GameMap.Coordination newPosition = getCurrentPosition();
 
         /* 2,3 is the set finish point of any level */
         if (newPosition.x == 2 && newPosition.y == 3) {
@@ -316,8 +321,8 @@ public class Character {
 
     public void lookAround(){
 
-        Path.Coordination thisPosition = getCurrentPosition();
-        Map<Path.Coordination, ArrayList<Object>> thisLevel = getLevelMap();
+        GameMap.Coordination thisPosition = getCurrentPosition();
+        Map<GameMap.Coordination, ArrayList<Object>> thisLevel = getLevelMap();
         ArrayList<Object> thisPositionItem = thisLevel.get(thisPosition);
 
         if (thisPositionItem.size() == 0){
