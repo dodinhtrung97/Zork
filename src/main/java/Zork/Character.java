@@ -40,9 +40,10 @@ public class Character {
     }
 
     public void setEquippedItem(Equipment item){
-        setDamage(getDamage() + item.getDamagePotential());
-        setDefend(getDefend() + item.getDefendPotential());
-
+        if (item != null){
+            setDamage(getDamage() + item.getDamagePotential());
+            setDefend(getDefend() + item.getDefendPotential());
+        }
         this.equippedItem = item;
     }
 
@@ -98,7 +99,11 @@ public class Character {
         }
     }
 
-    public void equip(Equipment item){ setEquippedItem(item); }
+    public void equip(Equipment item){
+        /* User can only equip 1 item at a time */
+        if (getEquippedItem() == null) { setEquippedItem(item); }
+        else { System.out.println("I must unequip my old item first"); }
+    }
 
     public void unequip(Equipment item){
         /* Count for both armor and weapon */
