@@ -25,10 +25,10 @@ public class ZorkRunner {
             String baseCommand;
             String argument;
 
-            if (command.contains(" ")) {
-                String[] splitCommand = command.split(" ", 2);
-                baseCommand = splitCommand[0];
-                argument = splitCommand[1];
+            if (command.contains(" ") && !command.equals("look around")) {
+                int splitAt = command.lastIndexOf(" ");
+                baseCommand = command.substring(0, splitAt);
+                argument = command.substring(splitAt + 1, command.length());
             } else {
                 baseCommand = command;
                 argument = null;
@@ -131,6 +131,7 @@ public class ZorkRunner {
                         }
                     } break;
                 case "attack":
+                    System.out.println(argument);
                     for (Monster i: monsterFactory.allMonsterList){
                         if (i.getName().equals(argument)){ player.attack(i); }
                     } break;

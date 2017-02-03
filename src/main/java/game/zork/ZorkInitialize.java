@@ -19,7 +19,7 @@ public class ZorkInitialize {
         /* Basic Character Setup  */
         ArrayList<Item> blankInventory = new ArrayList<>();
 
-        player.setCurrentLevel(1);
+        player.setCurrentLevel(1 );
         player.setCurrentPosition(0,0);
         player.setMaxHp(50);
         player.setCurrentHp(50);
@@ -48,6 +48,7 @@ public class ZorkInitialize {
 
         /* It's ugly af but I don't have enough time */
         ArrayList<Map<GameMap.Coordination, ArrayList<Object>>> gameMaps = new ArrayList<>();
+
         gameMaps.add(gameMap.firstMap);
         gameMaps.add(gameMap.secondMap);
         gameMaps.add(gameMap.thirdMap);

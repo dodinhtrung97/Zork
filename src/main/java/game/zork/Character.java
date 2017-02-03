@@ -325,6 +325,7 @@ public class Character {
         Map<GameMap.Coordination, ArrayList<Object>> thisLevel = getLevelMap();
         ArrayList<Object> thisPositionItem = thisLevel.get(thisPosition);
 
+
         if (thisPositionItem.size() == 0){
             System.out.println("Doesn't look like there's much here");
             return;
@@ -338,6 +339,6 @@ public class Character {
                 System.out.print(((Item) i).getName() + " and a ");
             }
         }
-        System.out.print(" over here.");
+        System.out.print(" over here.\n");
     }
 }

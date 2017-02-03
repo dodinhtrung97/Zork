@@ -24,6 +24,14 @@ public class GameMap {
             return false;
         }
 
+        @Override
+        public int hashCode(){
+            int result = 17;
+            result = 31 * result + this.x;
+            result = 31 * result + this.y;
+            return result;
+        }
+
     }
 
     protected Map<Coordination, ArrayList<Object>> firstMap = new HashMap<>();
