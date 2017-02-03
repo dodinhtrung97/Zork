@@ -1,4 +1,4 @@
-package Zork;
+package game.zork;
 
 import java.util.Scanner;
 
@@ -14,9 +14,10 @@ public class ZorkRunner {
         Character player = new Character();
         ItemFactory itemFactory = new ItemFactory();
         MonsterFactory monsterFactory = new MonsterFactory();
+        Path path = new Path();
 
         ZorkInitialize init = new ZorkInitialize();
-        init.setZorkInit(player, itemFactory, monsterFactory);
+        init.setZorkInit(player, itemFactory, monsterFactory, path);
 
         while(true){
 
@@ -84,6 +85,9 @@ public class ZorkRunner {
                             System.out.print(i.getName() + " ");
                         }
                     } break;
+                case "map":
+                    path.drawMap(player);
+                    break;
                 case "go":
                     player.go(argument);
                     System.out.println(player.getCurrentPosition().x + "," + player.getCurrentPosition().y);
@@ -119,20 +123,33 @@ public class ZorkRunner {
                         }
                     } break;
                 case "unequip":
-                    /* If player has no equipped item then break */
-                    if (player.getEquippedItem() == null) {
-                        System.out.println("I have nothing to unequip");
-                        break;
-                    }
-
                     /* Check that item exists in equipment list */
                     for (Equipment i: itemFactory.allEquipments){
                         /* Find item in (Item) type and make sure user is equipped with that item */
                         if (i.getName().equals(argument) && player.getEquippedItem().equals(i)){
                             player.unequip(i);
-                        } else {
-                            System.out.println("I'm not equipped with that");
                         }
+                    } break;
+                case "attack":
+                    for (Monster i: monsterFactory.allMonsterList){
+                        if (i.getName().equals(argument)){ player.attack(i); }
+                    } break;
+                case "look around":
+                    player.lookAround();
+                    break;
+                case "look at":
+                    /* Look in itemFactory */
+                    for (Item i: itemFactory.allItems){
+                        if (i.getName().equals(argument)) { System.out.println(i.getDescription()); }
+                    }
+                    /* If not in item factory then look in monsnterFactory */
+                    for (Monster i: monsterFactory.allMonsterList) {
+                        if (i.getName().equals(argument)) { System.out.println(i.getDescription()); }
+                    }
+                    break;
+                case "flee":
+                    for (Monster i: monsterFactory.allMonsterList){
+                        if (i.getName().equals(argument)){ player.flee(i); }
                     } break;
             }
         }

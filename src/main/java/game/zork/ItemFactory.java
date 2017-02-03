@@ -1,4 +1,4 @@
-package Zork;
+package game.zork;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ public class ItemFactory {
     public ArrayList<KeyItem> allKeyItems = new ArrayList<>();
     public ArrayList<Equipment> allEquipments = new ArrayList<>();
     public ArrayList<Potion> allPotions = new ArrayList<>();
+    public ArrayList<Item> allItems = new ArrayList<>();
 
     public void setAllItems(){
 
@@ -71,5 +72,9 @@ public class ItemFactory {
         allKeyItems.addAll(Arrays.asList(key1, key2, key3));
         allEquipments.addAll(Arrays.asList(weapon1, weapon2));
         allPotions.addAll(Arrays.asList(potion1, potion2, potion3));
+
+        allItems.addAll(allEquipments);
+        allItems.addAll(allKeyItems);
+        allItems.addAll(allPotions);
     }
 }

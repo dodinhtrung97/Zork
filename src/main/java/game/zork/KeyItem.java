@@ -1,4 +1,4 @@
-package Zork;
+package game.zork;
 
 /**
  * Created by Trung on 2/2/2017.

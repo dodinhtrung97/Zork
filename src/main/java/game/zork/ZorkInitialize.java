@@ -1,4 +1,4 @@
-package Zork;
+package game.zork;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ZorkInitialize {
 
-    public void setZorkInit(Character player, ItemFactory itemFactory, MonsterFactory monsterFactory){
+    public void setZorkInit(Character player, ItemFactory itemFactory, MonsterFactory monsterFactory, Path path){
 
         /* Initialize Item Factory */
         itemFactory.setAllItems();
@@ -18,6 +18,7 @@ public class ZorkInitialize {
         /* Basic Character Setup  */
         ArrayList<Item> blankInventory = new ArrayList<>();
 
+        player.setCurrentLevel(1);
         player.setCurrentPosition(0,0);
         player.setMaxHp(50);
         player.setCurrentHp(50);
@@ -25,5 +26,10 @@ public class ZorkInitialize {
         player.setDefend(5);
         player.setEquippedItem(null);
         player.setInventory(blankInventory);
+
+        /* Level Setup */
+        path.initLevel1(monsterFactory, itemFactory);
+        path.initLevel2(monsterFactory, itemFactory);
+        path.initLevel3(monsterFactory, itemFactory);
     }
 }

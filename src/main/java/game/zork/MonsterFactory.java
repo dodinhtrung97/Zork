@@ -1,4 +1,4 @@
-package Zork;
+package game.zork;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,8 +8,9 @@ import java.util.Arrays;
  */
 public class MonsterFactory {
 
-    public ArrayList<NormalMonster> normalMonstersList = new ArrayList<>();
-    public ArrayList<GhostMonster> ghostMonsterList = new ArrayList<>();
+    public ArrayList<NormalMonster> allNormalMonsters = new ArrayList<>();
+    public ArrayList<GhostMonster> allGhostMonster = new ArrayList<>();
+    public ArrayList<Monster> allMonsterList = new ArrayList<>();
 
     public void setAllMonsters(){
 
@@ -70,7 +71,10 @@ public class MonsterFactory {
         ghost3.setHp(150);
         ghost3.setDamage(50);
 
-        normalMonstersList.addAll(Arrays.asList(monster1, monster2, monster3));
-        ghostMonsterList.addAll(Arrays.asList(ghost1, ghost2, ghost3));
+        allNormalMonsters.addAll(Arrays.asList(monster1, monster2, monster3));
+        allGhostMonster.addAll(Arrays.asList(ghost1, ghost2, ghost3));
+
+        allMonsterList.addAll(allNormalMonsters);
+        allMonsterList.addAll(allGhostMonster);
     }
 }
