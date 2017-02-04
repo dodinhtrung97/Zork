@@ -97,13 +97,18 @@ public class ZorkRunner {
 
                     for (Item i: player.getInventory()){
                         /* User has item and item is potion */
+                        System.out.println(i);
+                        System.out.println(i.getName());
+                        System.out.println(i.getType());
                         if (i.getName().equals(argument) && i.getType().equals("potion")) {
                             /* Enforce potion class on item */
                             Potion potion = ((Potion) i);
                             player.use(potion);
+                            break;
                         } else {
                             /* Print something */
                             System.out.println("I don't think my stomach will agree with that");
+                            break;
                         }
                     } break;
                 case "equip":

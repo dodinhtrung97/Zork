@@ -234,6 +234,9 @@ public class Character {
 
         if  ((threshHold) > getMaxHp()) { setCurrentHp(getMaxHp()); }
         else { setCurrentHp(threshHold); }
+
+        getInventory().remove(potion);
+        setInventory(getInventory());
     }
 
     /**
