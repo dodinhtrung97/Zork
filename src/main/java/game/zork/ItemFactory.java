@@ -29,17 +29,17 @@ public class ItemFactory {
         /* All Key Items */
         key1.setKeyPhrases("Some String 1");
         key1.setDescription("A torn piece of paper");
-        key1.setName("Piece of paper");
+        key1.setName("Piece of paper 1");
         key1.setType("key");
 
         key2.setKeyPhrases("Some String 2");
         key2.setDescription("A torn piece of paper");
-        key2.setName("Piece of paper");
+        key2.setName("Piece of paper 2");
         key2.setType("key");
 
         key3.setKeyPhrases("Some String 3");
         key3.setDescription("A torn piece of paper");
-        key3.setName("Piece of paper");
+        key3.setName("Piece of paper 3");
         key3.setType("key");
 
         /* All Equipment Items */

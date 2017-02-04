@@ -106,7 +106,9 @@ public class Character {
         GameMap.Coordination currentPosition = getCurrentPosition();
 
         for (Object i: mapLevel.get(currentPosition)){
-            if (i instanceof Item && ((Item) i).getName() == item.getName()){ return true; }
+            if (i instanceof Item && ((Item) i).getName() == item.getName()){
+                System.out.println(((Item) i).getName());
+                return true; }
         }
         return false;
     }
@@ -175,7 +177,6 @@ public class Character {
                     System.out.print("There's a wall over south\n");
                 } break;
             case "east":
-                System.out.println(direction);
                 if ( isLegalMove(new GameMap.Coordination(x - 1,y)) ){
                     setCurrentPosition(x-1, y);
                 } else {
@@ -274,7 +275,6 @@ public class Character {
 
         /* Add item to inventory if pass itemExist test */
         getInventory().add(item);
-        System.out.println(getInventory());
         setInventory(getInventory());
     }
 
@@ -299,6 +299,7 @@ public class Character {
 
                     System.out.println("Attacked " + monster.getName());
                     System.out.println(monster.getName() + " HP is: " + monster.getHp());
+                    System.out.println("Monster retaliated");
                     System.out.println("Your HP is: " + getCurrentHp() + "/" + getMaxHp());
                 }
                 break;
@@ -312,6 +313,7 @@ public class Character {
 
                     System.out.println("Attacked " + monster.getName());
                     System.out.println(monster.getName() + " HP is: " + monster.getHp());
+                    System.out.println("Monster retaliated");
                     System.out.println("Your HP is: " + getCurrentHp() + "/" + getMaxHp());
                 }
                 break;
@@ -355,12 +357,12 @@ public class Character {
         for (Object i: thisPositionItem){
             if (i instanceof Monster){
                 if (((Monster) i).getHp() <= 0){
-                    System.out.print("Dead " + ((Monster) i).getName() + " and a ");
+                    System.out.print("Dead " + ((Monster) i).getName() + ", ");
                     continue;
                 }
-                System.out.print(((Monster) i).getName() + " and a ");
+                System.out.print(((Monster) i).getName() + ", ");
             } else if (i instanceof Item){
-                System.out.print(((Item) i).getName() + " and a ");
+                System.out.print(((Item) i).getName() + ", ");
             }
         }
         System.out.print("over here.\n");

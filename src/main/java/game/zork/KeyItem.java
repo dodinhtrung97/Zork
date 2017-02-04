@@ -9,6 +9,6 @@ public class KeyItem extends Item {
 
     public void setKeyPhrases(String keyPhrases){ this.keyPhrases = keyPhrases; }
 
-    public String getKeyPhrases(String keyPhrases){ return this.keyPhrases; }
+    public String getKeyPhrases(){ return this.keyPhrases; }
 
 }

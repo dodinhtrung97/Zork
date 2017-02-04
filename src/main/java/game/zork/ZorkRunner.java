@@ -1,5 +1,6 @@
 package game.zork;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -84,7 +85,7 @@ public class ZorkRunner {
                         for (Item i : player.getInventory()) {
                             System.out.print(i.getName() + ",");
                         }
-                    } break;
+                    } System.out.print("\n"); break;
                 case "map":
                     gameMap.drawMap(player);
                     break;
@@ -165,6 +166,13 @@ public class ZorkRunner {
                 case "drop":
                     for (Item i: itemFactory.allItems){
                         if (i.getName().equals(argument)){ player.drop(i); }
+                    } break;
+                case "key":
+                    for (Item i: player.getInventory()){
+                        if (i.getType().equals("key")) {
+                            System.out.println(i.getName());
+                            System.out.println(((KeyItem) i).getKeyPhrases());
+                        }
                     } break;
                 case "quit":
                     System.exit(0);
