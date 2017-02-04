@@ -79,6 +79,7 @@ public class Character {
     /**
      *
      * @param position current character position in custom (Coordination) type
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
      * @return boolean of whether or not a requested movement is legal
      */
     public boolean isLegalMove(GameMap.Coordination position, GameMap gameMap){
@@ -123,6 +124,12 @@ public class Character {
         return false;
     }
 
+    /**
+     *
+     * @param monster for health checking
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
+     * update player's status if won battle
+     */
     public void postBattle(Monster monster, GameMap gameMap){
         /* If battle's finished */
         if ( monster.getHp() <= 0 ){
@@ -140,6 +147,9 @@ public class Character {
         }
     }
 
+    /**
+     * If hp <= 0 then quit game
+     */
     public void checkQuit(){
         if (getCurrentHp() <= 0){
             System.out.println("You died");
@@ -150,6 +160,7 @@ public class Character {
     /**
      *
      * @param direction requested movement
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
      * set character new position if requested movement is legal
      */
     public void go(String direction, GameMap gameMap){
@@ -271,6 +282,12 @@ public class Character {
         } else { System.out.println("There's nothing to drop"); }
     }
 
+    /**
+     *
+     * @param item Item to pick
+     * @param mapLevel to make use of itemExist function
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
+     */
     public void pick(Item item,  Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
         if (!itemExist(item, mapLevel)){
@@ -298,6 +315,12 @@ public class Character {
 
     }
 
+    /**
+     *
+     * @param monster Monster to attack
+     * @param mapLevel to make use of monsterExist function
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
+     */
     public void attack(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
         if (!monsterExist(monster, mapLevel)){
@@ -342,6 +365,12 @@ public class Character {
         postBattle(monster, gameMap);
     }
 
+    /**
+     *
+     * @param monster Monster to flee from
+     * @param mapLevel to make use of monsterExist function
+     * @param gameMap GameMap is initialized in ZorkRunner for map manipulation/use
+     */
     public void flee(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
         if (!monsterExist(monster, mapLevel)){
@@ -363,6 +392,10 @@ public class Character {
 
     /* Look at function is implemented inside zorkRunner */
 
+    /**
+     *
+     * @param thisLevel retrieved from gameMap initialized in ZorkRunner, to look at
+     */
     public void lookAround(Map<GameMap.Coordination, ArrayList<Object>> thisLevel){
 
         GameMap.Coordination thisPosition = getCurrentPosition();
