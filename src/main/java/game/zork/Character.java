@@ -208,7 +208,8 @@ public class Character {
         GameMap.Coordination newPosition = getCurrentPosition();
 
         /* 2,3 is the set finish point of any level */
-        if ((newPosition.x == 2 && newPosition.y == 3) && getCurrentLevel() != 3) {
+        ZorkRunner zorkRunner = new ZorkRunner();
+        if ((newPosition.x == 2 && newPosition.y == 3) && (zorkRunner.numberOfKeyItems == getCurrentLevel()+1) && getCurrentLevel() != 3) {
             /* If at 2,3 then switch level and set position to 0,0 */
             setCurrentLevel(getCurrentLevel() + 1);
             setCurrentPosition(0,0);

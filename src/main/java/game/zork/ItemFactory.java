@@ -36,7 +36,7 @@ public class ItemFactory {
         specialKey.setName("Piece of paper");
         specialKey.setType("key");
 
-        key1.setKeyPhrases("“Almost there” I dash, treading on the weeds and grasses that are ignited by the burning sunlight. Barely make it to " +
+        key1.setKeyPhrases("I dash, treading on the weeds and grasses that are ignited by the burning sunlight. Barely make it to " +
                 "the slamming train doors as I pull out my hands and wipe away the drips on my cheeks.");
         key1.setDescription("A torn piece of paper");
         key1.setName("Piece of paper 1");
