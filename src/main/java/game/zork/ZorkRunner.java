@@ -82,7 +82,7 @@ public class ZorkRunner {
                         System.out.print("NONE");
                     } else {
                         for (Item i : player.getInventory()) {
-                            System.out.print(i.getName() + " ");
+                            System.out.print(i.getName() + ",");
                         }
                     } break;
                 case "map":
@@ -166,6 +166,8 @@ public class ZorkRunner {
                     for (Item i: itemFactory.allItems){
                         if (i.getName().equals(argument)){ player.drop(i); }
                     } break;
+                case "quit":
+                    System.exit(0);
             }
         }
     }

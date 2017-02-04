@@ -144,6 +144,13 @@ public class Character {
         }
     }
 
+    public void checkQuit(){
+        if (getCurrentHp() <= 0){
+            System.out.println("You died");
+            System.exit(0);
+        }
+    }
+
     /**
      *
      * @param direction requested movement
@@ -309,6 +316,7 @@ public class Character {
                 }
                 break;
         }
+        checkQuit();
         postBattle(monster);
     }
 
@@ -321,12 +329,14 @@ public class Character {
 
         monster.setHp(0);
         final Random random = new Random();
-        int potentialDamage = monster.getDamage() * 5;
+        int potentialDamage = monster.getDamage() * 3;
 
         if ( random.nextBoolean() ){
             /* Receive damage by chance */
             setCurrentHp(getCurrentHp() - potentialDamage);
-        } postBattle(monster);
+            checkQuit();
+        }
+        postBattle(monster);
     }
 
     /* Look at function is implemented inside zorkRunner */
