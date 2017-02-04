@@ -33,21 +33,17 @@ public class Character {
 
     public List<Item> getInventory(){ return this.inventory; }
 
-    public Map<GameMap.Coordination, ArrayList<Object>> getLevelMap(){
+    public Map<GameMap.Coordination, ArrayList<Object>> getLevelMap(GameMap gameMap){
 
-        GameMap gameMap = new GameMap();
-        ZorkInitialize zorkInitialize = new ZorkInitialize();
-        Map<GameMap.Coordination, ArrayList<Object>> notGoingToHappen = new HashMap<>();
-
-        ArrayList<Map<GameMap.Coordination, ArrayList<Object>>> allMaps = zorkInitialize.initGameMaps(gameMap);
+        Map<GameMap.Coordination, ArrayList<Object>> blankMap = new HashMap<>();
 
         switch (getLevel()){
-            case 1: return allMaps.get(0);
-            case 2: return allMaps.get(1);
-            case 3: return allMaps.get(2);
+            case 1: return gameMap.firstMap;
+            case 2: return gameMap.secondMap;
+            case 3: return gameMap.thirdMap;
         }
 
-        return notGoingToHappen;
+        return blankMap;
     }
 
     /* All SETS methods */
@@ -85,9 +81,9 @@ public class Character {
      * @param position current character position in custom (Coordination) type
      * @return boolean of whether or not a requested movement is legal
      */
-    public boolean isLegalMove(GameMap.Coordination position){
+    public boolean isLegalMove(GameMap.Coordination position, GameMap gameMap){
 
-        Map<GameMap.Coordination, ArrayList<Object>> levelMap = getLevelMap();
+        Map<GameMap.Coordination, ArrayList<Object>> levelMap = getLevelMap(gameMap);
         ArrayList<GameMap.Coordination> checkLegal = new ArrayList<>(levelMap.keySet());
 
         /* If requested position is within legal path */
@@ -100,9 +96,8 @@ public class Character {
      * @param item input of type (Item)
      * @return boolean of whether or not item exist at character's current position
      */
-    public boolean itemExist(Item item){
+    public boolean itemExist(Item item, Map<GameMap.Coordination, ArrayList<Object>> mapLevel){
 
-        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
         GameMap.Coordination currentPosition = getCurrentPosition();
 
         for (Object i: mapLevel.get(currentPosition)){
@@ -118,9 +113,8 @@ public class Character {
      * @param monster input of type (Monster)
      * @return boolean of whether or not monster exist at character's current position
      */
-    public boolean monsterExist(Monster monster){
+    public boolean monsterExist(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel){
 
-        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
         GameMap.Coordination currentPosition = getCurrentPosition();
 
         for (Object i: mapLevel.get(currentPosition)){
@@ -129,7 +123,7 @@ public class Character {
         return false;
     }
 
-    public void postBattle(Monster monster){
+    public void postBattle(Monster monster, GameMap gameMap){
         /* If battle's finished */
         if ( monster.getHp() <= 0 ){
             /* Add stat bonus */
@@ -138,7 +132,7 @@ public class Character {
             setDefend(getDefend() + 2);
 
             /* Drop items and delete monster from current position */
-            Map<GameMap.Coordination, ArrayList<Object>> thisMap = getLevelMap();
+            Map<GameMap.Coordination, ArrayList<Object>> thisMap = getLevelMap(gameMap);
             ArrayList<Object> thisPositionItem = thisMap.get(getCurrentPosition());
 
             if (monster.getItem() != null){ thisPositionItem.add(monster.getItem()); }
@@ -158,32 +152,41 @@ public class Character {
      * @param direction requested movement
      * set character new position if requested movement is legal
      */
-    public void go(String direction){
+    public void go(String direction, GameMap gameMap){
+
+        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap(gameMap);
+        GameMap.Coordination currentPosition = getCurrentPosition();
+
+        for (Object i: mapLevel.get(currentPosition)){
+            if (i instanceof Monster){
+                System.out.println("There is an enemy blocking your way");
+                return; }
+        }
 
         int y = getCurrentPosition().y;
         int x = getCurrentPosition().x;
 
         switch (direction) {
             case "north":
-                if ( isLegalMove(new GameMap.Coordination(x,y - 1)) ){
+                if ( isLegalMove(new GameMap.Coordination(x,y - 1), gameMap) ){
                     setCurrentPosition(x, y-1);
                 } else {
                     System.out.print("There's a wall over north\n");
                 } break;
             case "south":
-                if ( isLegalMove(new GameMap.Coordination(x,y + 1)) ){
+                if ( isLegalMove(new GameMap.Coordination(x,y + 1), gameMap) ){
                     setCurrentPosition(x, y+1);
                 } else {
                     System.out.print("There's a wall over south\n");
                 } break;
             case "east":
-                if ( isLegalMove(new GameMap.Coordination(x - 1,y)) ){
+                if ( isLegalMove(new GameMap.Coordination(x - 1,y), gameMap) ){
                     setCurrentPosition(x-1, y);
                 } else {
                     System.out.print("There's a wall over east\n");
                 } break;
             case "west":
-                if ( isLegalMove(new GameMap.Coordination(x + 1,y)) ){
+                if ( isLegalMove(new GameMap.Coordination(x + 1,y), gameMap) ){
                     setCurrentPosition(x+1, y);
                 } else { System.out.print("There's a wall over west\n");
                 } break;
@@ -245,6 +248,7 @@ public class Character {
 
         getInventory().remove(potion);
         setInventory(getInventory());
+        System.out.println("Used " + potion.getName());
     }
 
     /**
@@ -262,13 +266,14 @@ public class Character {
             } else {
                 getInventory().remove(item);
                 setInventory(getInventory());
+                System.out.println("Dropped " + item.getName());
             }
         } else { System.out.println("There's nothing to drop"); }
     }
 
-    public void pick(Item item){
+    public void pick(Item item,  Map<GameMap.Coordination, ArrayList<Object>> mapLevel){
 
-        if (!itemExist(item)){
+        if (!itemExist(item, mapLevel)){
             System.out.println("I don't see that around here");
             return;
         }
@@ -276,11 +281,12 @@ public class Character {
         /* Add item to inventory if pass itemExist test */
         getInventory().add(item);
         setInventory(getInventory());
+        System.out.println("Picked " + item.getName());
     }
 
-    public void attack(Monster monster){
+    public void attack(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
-        if (!monsterExist(monster)){
+        if (!monsterExist(monster, mapLevel)){
             System.out.println("I don't see that around here");
             return;
         }
@@ -319,12 +325,12 @@ public class Character {
                 break;
         }
         checkQuit();
-        postBattle(monster);
+        postBattle(monster, gameMap);
     }
 
-    public void flee(Monster monster){
+    public void flee(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
-        if (!monsterExist(monster)){
+        if (!monsterExist(monster, mapLevel)){
             System.out.println("I don't think I need to run from anything");
             return;
         }
@@ -338,7 +344,7 @@ public class Character {
             setCurrentHp(getCurrentHp() - potentialDamage);
             checkQuit();
         }
-        postBattle(monster);
+        postBattle(monster, gameMap);
     }
 
     /* Look at function is implemented inside zorkRunner */
@@ -349,7 +355,7 @@ public class Character {
         ArrayList<Object> thisPositionItem = thisLevel.get(thisPosition);
 
         if (thisPositionItem.size() == 0){
-            System.out.println("Doesn't look like there's much here");
+            System.out.println("There is a path foward");
             return;
         }
 

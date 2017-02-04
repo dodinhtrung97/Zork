@@ -1,12 +1,25 @@
 package game.zork;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Created by Trung on 2/1/2017.
  */
 public class ZorkRunner {
+
+    public static Map<GameMap.Coordination, ArrayList<Object>> getCurrentMap(Character player, GameMap gameMap){
+
+        Map<GameMap.Coordination, ArrayList<Object>> blankMap = new HashMap<>();
+        switch (player.getLevel()){
+            case 1: return gameMap.firstMap;
+            case 2: return gameMap.secondMap;
+            case 3: return gameMap.thirdMap;
+        }
+        return blankMap;
+    }
 
     public static void main(String[] args) {
 
@@ -25,6 +38,8 @@ public class ZorkRunner {
             String command = in.nextLine();
             String baseCommand;
             String argument;
+
+            Map<GameMap.Coordination, ArrayList<Object>> thisMap = getCurrentMap(player, gameMap);
 
             if (command.contains(" ") && !command.equals("look around")) {
                 String[] splitAt = command.split(" ",2);
@@ -87,10 +102,10 @@ public class ZorkRunner {
                         }
                     } System.out.print("\n"); break;
                 case "map":
-                    gameMap.drawMap(player);
+                    gameMap.drawMap(player, gameMap);
                     break;
                 case "go":
-                    player.go(argument);
+                    player.go(argument, gameMap);
                     break;
                 case "use":
                     /* If nothing in inventory then for loop wont get executed */
@@ -137,14 +152,10 @@ public class ZorkRunner {
                     } break;
                 case "attack":
                     for (Monster i: monsterFactory.allMonsterList){
-                        if (i.getName().equals(argument)){ player.attack(i); }
+                        if (i.getName().equals(argument)){ player.attack(i, thisMap, gameMap); }
                     } break;
                 case "look around":
-                    switch (player.getLevel()){
-                        case 1: player.lookAround(gameMap.firstMap); break;
-                        case 2: player.lookAround(gameMap.secondMap); break;
-                        case 3: player.lookAround(gameMap.thirdMap); break;
-                    }
+                    player.lookAround(getCurrentMap(player, gameMap));
                 case "look at":
                     /* Look in itemFactory */
                     for (Item i: itemFactory.allItems){
@@ -157,11 +168,11 @@ public class ZorkRunner {
                     break;
                 case "flee":
                     for (Monster i: monsterFactory.allMonsterList){
-                        if (i.getName().equals(argument)){ player.flee(i); }
+                        if (i.getName().equals(argument)){ player.flee(i, thisMap, gameMap); }
                     } break;
                 case "pick":
                     for (Item i: itemFactory.allItems){
-                        if (i.getName().equals(argument)){ player.pick(i); }
+                        if (i.getName().equals(argument)){ player.pick(i, thisMap); }
                     } break;
                 case "drop":
                     for (Item i: itemFactory.allItems){

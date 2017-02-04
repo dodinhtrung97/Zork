@@ -177,10 +177,10 @@ public class GameMap {
         thirdMap.put(finish, things5);
     }
 
-    public void drawMap(Character player){
+    public void drawMap(Character player, GameMap gameMap){
 
         /* Note that all maps is of size 4x4 */
-        Map<Coordination, ArrayList<Object>> currentMap = player.getLevelMap();
+        Map<Coordination, ArrayList<Object>> currentMap = player.getLevelMap(gameMap);
 
         ArrayList<Coordination> allLegalPath = new ArrayList<>(currentMap.keySet());
 
