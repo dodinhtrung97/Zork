@@ -5,7 +5,7 @@ Story:
 Objective:
 	
 	1. Levels:
-		There will be 4 levels, each contains several rooms wherein stores item/monsters
+		There will be 3 levels, each contains several rooms wherein stores item/monsters
 		At the top of each level, there will be a monster the player must defeat to advance to the next level
 		The player can theoretically run from the monster and advance through the level
 	2. Rooms:
@@ -16,4 +16,4 @@ Objective:
 		Battle system is turn based
 	4. Main Objective:
 		There are 4 pieces of paper in the games, the user is responsible for collecting them to form a paragraph.
-		After collecting all 4 of the pieces, the user will be presented with 2 choices which will trigger the end game.
+		After collecting all 4 of the pieces, the end game will be triggered.

@@ -8,11 +8,12 @@ Functions:
 	Look at <Object>: Print object description
 	Look around: Print location description
 	Map: Print map, character position and item potion is discovereed
-	Eat <Item>: Use potion is <Item> is potion, print other message otherwise
+	Use <Item>: Use potion is <Item> is potion, print other message otherwise
 	Attack <Object>: Attack an enemy
-	Attack <Object> With <Item>: To attack a ghost enemy, won't deal damage if use Attack function
 	Pick <Item>: Pick item
 	Drop <Item>: Drop item
+	Equip <Equipment>: Equip item
+	Unequip <Equipment>: Unequip item
 
 Diagram Explanation:
 	The game will use a basic RPG setup, that is to say, all of its basic functions (described above). Once the user starts up the game, the program will wait for their input and continue through that process until the player either quit or finish the game.
@@ -21,8 +22,7 @@ Diagram Explanation:
 	There are 2 types of monster: normal (hostile, can be killed with normal attack), and ghost (non-hostile, need specific item to kill).
 	There are 3 types of items: Key item (Use to open up a new section to the paragraph that is the main objective of the game), potion (edible, heal hp), and equipment, which are equipped upon pick up
 	
-	A Monster (either type) can (but not neccesarily must) chase after the player, dealing damage for a randomized 5-10 steps should the player attack the monster and is unable to kill it.
-	Monster can be spared if its hp is below the player's hp, giving the player an item and it's location on the map, but the monster may chase after the player
+	Monster can be fled from, effectively killed, but may deal 3 times its damage to the player by doing so
 
 *There will be 3 levels, each with there different number of rooms and treasure to discover and they won't (hopefully) be constructed the same way. The incentive of this game is for the player to discover 3 pieces of key items in each level, so the levels themselves mechanically might not vary. That said, ghost type monster will only happen in the later part of the game so there's that.
 
