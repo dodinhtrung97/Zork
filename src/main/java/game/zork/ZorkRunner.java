@@ -160,7 +160,7 @@ public class ZorkRunner {
                     }
                     /* Print something */
                     if (player.getEquippedItem() == null) {
-                        System.out.println("I don't think my stomach will agree with that");
+                        System.out.println("I can't equip that");
                     } break;
                 case "unequip":
                     /* Check that item exists in equipment list */
