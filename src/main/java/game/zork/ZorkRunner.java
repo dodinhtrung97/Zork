@@ -131,19 +131,23 @@ public class ZorkRunner {
                     /* If nothing in inventory then for loop wont get executed */
                     if (player.getInventory().size() == 0) { System.out.println("I have no potion"); }
 
+                    int initPlayerHp = player.getCurrentHp();
+
                     for (Item i: player.getInventory()){
                         /* User has item and item is potion */
-                        if (i.getName().equals(argument) && i.getType().equals("potion")) {
+                        if (i.getName().equals(argument) && i instanceof Potion) {
                             /* Enforce potion class on item */
                             Potion potion = ((Potion) i);
                             player.use(potion);
                             break;
-                        } else {
-                            /* Print something */
-                            System.out.println("I don't think my stomach will agree with that");
-                            break;
                         }
-                    } break;
+                    }
+
+                    if (player.getCurrentHp() == initPlayerHp) {
+                        /* Print something */
+                        System.out.println("I don't think my stomach will agree with that");
+                    }
+                    break;
                 case "equip":
                     /* If nothing in inventory then for loop wont get executed */
                     if (player.getInventory().size() == 0) { System.out.println("I have nothing to equip"); }

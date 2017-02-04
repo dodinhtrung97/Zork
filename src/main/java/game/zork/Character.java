@@ -217,6 +217,8 @@ public class Character {
             /* If at 2,3 then switch level and set position to 0,0 */
             setCurrentLevel(getCurrentLevel() + 1);
             setCurrentPosition(0,0);
+
+            System.out.println("You are now at level " + getCurrentLevel());
         }
     }
 
