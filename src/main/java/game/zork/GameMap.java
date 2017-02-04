@@ -44,7 +44,7 @@ public class GameMap {
         NormalMonster monster1 = monsterFactory.allNormalMonsters.get(0);
         NormalMonster monster2 = monsterFactory.allNormalMonsters.get(1);
         Potion potion1 = itemFactory.allPotions.get(0);
-        KeyItem key1 = itemFactory.allKeyItems.get(0);
+        KeyItem key1 = itemFactory.allKeyItems.get(1);
 
         /* All legal coordinate in this level */
         Coordination start = new Coordination(0,0);
@@ -89,7 +89,7 @@ public class GameMap {
         Potion potion1 = itemFactory.allPotions.get(1);
         Equipment equipment1 = itemFactory.allEquipments.get(0);
         Equipment equipment2 = itemFactory.allEquipments.get(1);
-        KeyItem key1 = itemFactory.allKeyItems.get(1);
+        KeyItem key1 = itemFactory.allKeyItems.get(2);
 
         /* All legal coordinate in this level */
         Coordination start = new Coordination(0,0);
@@ -134,7 +134,7 @@ public class GameMap {
         GhostMonster monster3 = monsterFactory.allGhostMonster.get(1);
         GhostMonster monster4 = monsterFactory.allGhostMonster.get(2);
         Potion potion1 = itemFactory.allPotions.get(2);
-        KeyItem key1 = itemFactory.allKeyItems.get(2);
+        KeyItem key1 = itemFactory.allKeyItems.get(3);
 
         /* All legal coordinate in this level */
         Coordination start = new Coordination(0,0);

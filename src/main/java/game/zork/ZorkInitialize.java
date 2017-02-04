@@ -21,6 +21,7 @@ public class ZorkInitialize {
         blankInventory.add(itemFactory.allKeyItems.get(0));
 
         player.setCurrentLevel(1);
+        player.setNumberOfKeyItem(1);
         player.setCurrentPosition(0,0);
         player.setMaxHp(50);
         player.setCurrentHp(50);

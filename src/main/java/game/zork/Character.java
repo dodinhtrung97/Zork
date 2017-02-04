@@ -13,6 +13,7 @@ public class Character {
     protected int maxHp;
     protected int damage;
     protected int defend;
+    protected int numberOfKeyItem;
     protected Equipment equippedItem;
     protected List<Item> inventory = new ArrayList<>();
 
@@ -32,6 +33,8 @@ public class Character {
     public Equipment getEquippedItem(){ return this.equippedItem; }
 
     public List<Item> getInventory(){ return this.inventory; }
+
+    public int getNumberOfKeyItems(){ return this.numberOfKeyItem; }
 
     public Map<GameMap.Coordination, ArrayList<Object>> getLevelMap(GameMap gameMap){
 
@@ -72,6 +75,8 @@ public class Character {
     public void setDefend(int defend){ this.defend = defend; }
 
     public void setInventory(List<Item> inventory){ this.inventory = inventory; }
+
+    public void setNumberOfKeyItem(int numberOfKeyItem){ this.numberOfKeyItem = numberOfKeyItem; }
 
 
     /* Functions supporting player actions */
@@ -208,8 +213,9 @@ public class Character {
         GameMap.Coordination newPosition = getCurrentPosition();
 
         /* 2,3 is the set finish point of any level */
-        ZorkRunner zorkRunner = new ZorkRunner();
-        if ((newPosition.x == 2 && newPosition.y == 3) && (zorkRunner.numberOfKeyItems == getCurrentLevel()+1) && getCurrentLevel() != 3) {
+        System.out.println(getNumberOfKeyItems());
+        System.out.println(getCurrentLevel());
+        if ((newPosition.x == 2 && newPosition.y == 3) && (getNumberOfKeyItems() == getCurrentLevel()+1) && getCurrentLevel() != 3) {
             /* If at 2,3 then switch level and set position to 0,0 */
             setCurrentLevel(getCurrentLevel() + 1);
             setCurrentPosition(0,0);
@@ -300,8 +306,7 @@ public class Character {
 
         /* Add to key item if is key item */
         if (item.getType().equals("key")){
-            ZorkRunner zorkRunner = new ZorkRunner();
-            zorkRunner.numberOfKeyItems += 1;
+            setNumberOfKeyItem(getNumberOfKeyItems() + 1);
         }
 
         /* Add item to inventory if pass itemExist test */

@@ -10,8 +10,6 @@ import java.util.Scanner;
  */
 public class ZorkRunner {
 
-    public int numberOfKeyItems = 1;
-
     public static Map<GameMap.Coordination, ArrayList<Object>> getCurrentMap(Character player, GameMap gameMap){
 
         Map<GameMap.Coordination, ArrayList<Object>> blankMap = new HashMap<>();
@@ -59,8 +57,7 @@ public class ZorkRunner {
             }
 
             /* Check end game condition */
-            ZorkRunner zorkRunner = new ZorkRunner();
-            if (zorkRunner.numberOfKeyItems == 4){
+            if (player.getNumberOfKeyItems() == 4){
                 for (Item i: player.getInventory()){
                     if (i.getType().equals("key")) {
                         System.out.println(i.getName());
