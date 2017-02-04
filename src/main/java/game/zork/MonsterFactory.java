@@ -23,10 +23,14 @@ public class MonsterFactory {
         NormalMonster monster1 = new NormalMonster();
         NormalMonster monster2 = new NormalMonster();
         NormalMonster monster3 = new NormalMonster();
+        NormalMonster monster4 = new NormalMonster();
+        NormalMonster monster5 = new NormalMonster();
+        NormalMonster monster6 = new NormalMonster();
 
         GhostMonster ghost1 = new GhostMonster();
         GhostMonster ghost2 = new GhostMonster();
         GhostMonster ghost3 = new GhostMonster();
+        GhostMonster ghost4 = new GhostMonster();
 
         // Monster 1
         monster1.setType("normal");
@@ -38,19 +42,43 @@ public class MonsterFactory {
 
         // Monster 2
         monster2.setType("normal");
-        monster2.setName("Cheeky Thief");
-        monster2.setDescription("Looks like that asshole back in highschool");
-        monster2.setHp(30);
-        monster2.setDamage(8);
-        monster2.setItems(potions.get(1));
+        monster2.setName("Spider");
+        monster2.setDescription("Looks like your everyday Satan spawn");
+        monster2.setHp(20);
+        monster2.setDamage(10);
+        monster2.setItems(potions.get(0));
 
         // Monster 3
         monster3.setType("normal");
-        monster3.setName("Stranger");
-        monster3.setDescription("Doesn't look like I know her");
-        monster3.setHp(30);
+        monster3.setName("Slightly less Horny Devil");
+        monster3.setDescription("Looks like your everyday Satan spawn");
+        monster3.setHp(20);
         monster3.setDamage(10);
-        monster3.setItems(potions.get(2));
+        monster3.setItems(potions.get(0));
+
+        // Monster 4
+        monster4.setType("normal");
+        monster4.setName("Cheeky Thief");
+        monster4.setDescription("Looks like that asshole back in highschool");
+        monster4.setHp(30);
+        monster4.setDamage(8);
+        monster4.setItems(potions.get(1));
+
+        // Monster 5
+        monster5.setType("normal");
+        monster5.setName("Stranger");
+        monster5.setDescription("Doesn't look like I know her");
+        monster5.setHp(30);
+        monster5.setDamage(10);
+        monster5.setItems(potions.get(2));
+
+        // Monster 6
+        monster6.setType("normal");
+        monster6.setName("Another Stranger");
+        monster6.setDescription("Doesn't look like I know her");
+        monster6.setHp(30);
+        monster6.setDamage(10);
+        monster6.setItems(potions.get(2));
 
         // Ghost 1
         ghost1.setType("ghost");
@@ -76,8 +104,16 @@ public class MonsterFactory {
         ghost3.setHp(150);
         ghost3.setDamage(50);
 
-        allNormalMonsters.addAll(Arrays.asList(monster1, monster2, monster3));
-        allGhostMonster.addAll(Arrays.asList(ghost1, ghost2, ghost3));
+        // Ghost 4
+        ghost4.setType("ghost");
+        ghost4.setName("Memory of house");
+        ghost4.setDescription("It's burning");
+        ghost4.setIsWeakTo("Candle");
+        ghost4.setHp(150);
+        ghost4.setDamage(50);
+
+        allNormalMonsters.addAll(Arrays.asList(monster1, monster2, monster3, monster4, monster5, monster6));
+        allGhostMonster.addAll(Arrays.asList(ghost1, ghost2, ghost3, ghost4));
 
         allMonsterList.addAll(allNormalMonsters);
         allMonsterList.addAll(allGhostMonster);

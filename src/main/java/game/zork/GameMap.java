@@ -65,7 +65,7 @@ public class GameMap {
         things2.add(potion1);
 
         ArrayList<Object> things3 = new ArrayList<>();
-        things3.addAll(Arrays.asList(monster1, key1));
+        things3.add(key1);
 
         ArrayList<Object> things4 = new ArrayList<>();
         things4.add(monster2);
@@ -83,8 +83,8 @@ public class GameMap {
     public void initLevel2(MonsterFactory monsterFactory, ItemFactory itemFactory){
 
         /* Prepare items and monsters */
-        NormalMonster monster1 = monsterFactory.allNormalMonsters.get(0);
-        NormalMonster monster2 = monsterFactory.allNormalMonsters.get(1);
+        NormalMonster monster1 = monsterFactory.allNormalMonsters.get(2);
+        NormalMonster monster2 = monsterFactory.allNormalMonsters.get(3);
         GhostMonster monster3 = monsterFactory.allGhostMonster.get(0);
         Potion potion1 = itemFactory.allPotions.get(1);
         Equipment equipment1 = itemFactory.allEquipments.get(0);
@@ -129,8 +129,8 @@ public class GameMap {
     public void initLevel3(MonsterFactory monsterFactory, ItemFactory itemFactory){
 
         /* Prepare items and monsters */
-        NormalMonster monster1 = monsterFactory.allNormalMonsters.get(1);
-        NormalMonster monster2 = monsterFactory.allNormalMonsters.get(2);
+        NormalMonster monster1 = monsterFactory.allNormalMonsters.get(4);
+        NormalMonster monster2 = monsterFactory.allNormalMonsters.get(5);
         GhostMonster monster3 = monsterFactory.allGhostMonster.get(1);
         GhostMonster monster4 = monsterFactory.allGhostMonster.get(2);
         Potion potion1 = itemFactory.allPotions.get(2);

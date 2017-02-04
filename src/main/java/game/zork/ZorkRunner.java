@@ -10,10 +10,12 @@ import java.util.Scanner;
  */
 public class ZorkRunner {
 
+    public int numberOfKeyItems = 1;
+
     public static Map<GameMap.Coordination, ArrayList<Object>> getCurrentMap(Character player, GameMap gameMap){
 
         Map<GameMap.Coordination, ArrayList<Object>> blankMap = new HashMap<>();
-        switch (player.getLevel()){
+        switch (player.getCurrentLevel()){
             case 1: return gameMap.firstMap;
             case 2: return gameMap.secondMap;
             case 3: return gameMap.thirdMap;
@@ -41,15 +43,35 @@ public class ZorkRunner {
 
             Map<GameMap.Coordination, ArrayList<Object>> thisMap = getCurrentMap(player, gameMap);
 
+            /* Dealing with user input */
             if (command.contains(" ") && !command.equals("look around")) {
-                String[] splitAt = command.split(" ",2);
-                baseCommand = splitAt[0];
-                argument = splitAt[1];
+                if (command.contains("look at")){
+                    baseCommand = command.substring(0,"look at".length());
+                    argument = command.substring("look at".length()+1, command.length());
+                } else {
+                    String[] splitAt = command.split(" ", 2);
+                    baseCommand = splitAt[0];
+                    argument = splitAt[1];
+                }
             } else {
                 baseCommand = command;
                 argument = null;
             }
 
+            /* Check end game condition */
+            ZorkRunner zorkRunner = new ZorkRunner();
+            if (zorkRunner.numberOfKeyItems == 4){
+                for (Item i: player.getInventory()){
+                    if (i.getType().equals("key")) {
+                        System.out.println(i.getName());
+                        System.out.println(((KeyItem) i).getKeyPhrases());
+                    }
+                }
+                System.out.println("You have finished the game");
+                System.exit(0);
+            }
+
+            /* Game starts here */
             switch (baseCommand){
                 case "info":
                     System.out.println("You wake up in an abanddon mansion holding a piece of paper wherein writes an incomplete story. Led to " +
@@ -113,9 +135,6 @@ public class ZorkRunner {
 
                     for (Item i: player.getInventory()){
                         /* User has item and item is potion */
-                        System.out.println(i);
-                        System.out.println(i.getName());
-                        System.out.println(i.getType());
                         if (i.getName().equals(argument) && i.getType().equals("potion")) {
                             /* Enforce potion class on item */
                             Potion potion = ((Potion) i);
@@ -172,7 +191,7 @@ public class ZorkRunner {
                     } break;
                 case "pick":
                     for (Item i: itemFactory.allItems){
-                        if (i.getName().equals(argument)){ player.pick(i, thisMap); }
+                        if (i.getName().equals(argument)){ player.pick(i, thisMap, gameMap); }
                     } break;
                 case "drop":
                     for (Item i: itemFactory.allItems){

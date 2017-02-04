@@ -18,6 +18,7 @@ public class ZorkInitialize {
 
         /* Basic Character Setup  */
         ArrayList<Item> blankInventory = new ArrayList<>();
+        blankInventory.add(itemFactory.allKeyItems.get(0));
 
         player.setCurrentLevel(1 );
         player.setCurrentPosition(0,0);

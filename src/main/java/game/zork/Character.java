@@ -19,7 +19,7 @@ public class Character {
     /* All GETS methods */
     public GameMap.Coordination getCurrentPosition(){ return this.currentPosition; }
 
-    public int getLevel(){ return this.level; }
+    public int getCurrentLevel(){ return this.level; }
 
     public int getCurrentHp(){ return this.currentHp; }
 
@@ -37,7 +37,7 @@ public class Character {
 
         Map<GameMap.Coordination, ArrayList<Object>> blankMap = new HashMap<>();
 
-        switch (getLevel()){
+        switch (getCurrentLevel()){
             case 1: return gameMap.firstMap;
             case 2: return gameMap.secondMap;
             case 3: return gameMap.thirdMap;
@@ -158,7 +158,7 @@ public class Character {
         GameMap.Coordination currentPosition = getCurrentPosition();
 
         for (Object i: mapLevel.get(currentPosition)){
-            if (i instanceof Monster){
+            if (i instanceof Monster && ((Monster) i).getHp() > 0){
                 System.out.println("There is an enemy blocking your way");
                 return; }
         }
@@ -195,9 +195,9 @@ public class Character {
         GameMap.Coordination newPosition = getCurrentPosition();
 
         /* 2,3 is the set finish point of any level */
-        if (newPosition.x == 2 && newPosition.y == 3) {
+        if ((newPosition.x == 2 && newPosition.y == 3) && getCurrentLevel() != 3) {
             /* If at 2,3 then switch level and set position to 0,0 */
-            setCurrentLevel(getLevel() + 1);
+            setCurrentLevel(getCurrentLevel() + 1);
             setCurrentPosition(0,0);
         }
     }
@@ -271,17 +271,31 @@ public class Character {
         } else { System.out.println("There's nothing to drop"); }
     }
 
-    public void pick(Item item,  Map<GameMap.Coordination, ArrayList<Object>> mapLevel){
+    public void pick(Item item,  Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
 
         if (!itemExist(item, mapLevel)){
             System.out.println("I don't see that around here");
             return;
         }
 
+        /* Add to key item if is key item */
+        if (item.getType().equals("key")){
+            ZorkRunner zorkRunner = new ZorkRunner();
+            zorkRunner.numberOfKeyItems += 1;
+        }
+
         /* Add item to inventory if pass itemExist test */
         getInventory().add(item);
         setInventory(getInventory());
         System.out.println("Picked " + item.getName());
+
+        Map<GameMap.Coordination, ArrayList<Object>> thisMap = getLevelMap(gameMap);
+        ArrayList<Object> thisPositionItem = thisMap.get(getCurrentPosition());
+
+        /* Remove Item from this position after pick up */
+        thisPositionItem.remove(item);
+        thisMap.put(getCurrentPosition(), thisPositionItem);
+
     }
 
     public void attack(Monster monster, Map<GameMap.Coordination, ArrayList<Object>> mapLevel, GameMap gameMap){
