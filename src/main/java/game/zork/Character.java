@@ -150,7 +150,9 @@ public class Character {
             if (monster.getItem() != null){ thisPositionItem.add(monster.getItem()); }
             thisMap.put(getCurrentPosition(), thisPositionItem);
 
-            System.out.println(monster.getName() + " dropped " + monster.getItem().getName());
+            if (monster.getItem() != null) {
+                System.out.println(monster.getName() + " dropped " + monster.getItem().getName());
+            }
         }
     }
 
