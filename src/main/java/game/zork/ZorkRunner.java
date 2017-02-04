@@ -26,9 +26,9 @@ public class ZorkRunner {
             String argument;
 
             if (command.contains(" ") && !command.equals("look around")) {
-                int splitAt = command.lastIndexOf(" ");
-                baseCommand = command.substring(0, splitAt);
-                argument = command.substring(splitAt + 1, command.length());
+                String[] splitAt = command.split(" ",2);
+                baseCommand = splitAt[0];
+                argument = splitAt[1];
             } else {
                 baseCommand = command;
                 argument = null;
@@ -90,7 +90,6 @@ public class ZorkRunner {
                     break;
                 case "go":
                     player.go(argument);
-                    System.out.println(player.getCurrentPosition().x + "," + player.getCurrentPosition().y);
                     break;
                 case "use":
                     /* If nothing in inventory then for loop wont get executed */
@@ -131,7 +130,6 @@ public class ZorkRunner {
                         }
                     } break;
                 case "attack":
-                    System.out.println(argument);
                     for (Monster i: monsterFactory.allMonsterList){
                         if (i.getName().equals(argument)){ player.attack(i); }
                     } break;
@@ -151,6 +149,14 @@ public class ZorkRunner {
                 case "flee":
                     for (Monster i: monsterFactory.allMonsterList){
                         if (i.getName().equals(argument)){ player.flee(i); }
+                    } break;
+                case "pick":
+                    for (Item i: itemFactory.allItems){
+                        if (i.getName().equals(argument)){ player.pick(i); }
+                    } break;
+                case "drop":
+                    for (Item i: itemFactory.allItems){
+                        if (i.getName().equals(argument)){ player.drop(i); }
                     } break;
             }
         }

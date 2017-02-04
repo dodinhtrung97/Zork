@@ -105,8 +105,26 @@ public class Character {
         Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
         GameMap.Coordination currentPosition = getCurrentPosition();
 
-        if (mapLevel.get(currentPosition).contains(item)) { return true; }
-        else { return false; }
+        for (Object i: mapLevel.get(currentPosition)){
+            if (i instanceof Item && ((Item) i).getName() == item.getName()){ return true; }
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param monster input of type (Monster)
+     * @return boolean of whether or not monster exist at character's current position
+     */
+    public boolean monsterExist(Monster monster){
+
+        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
+        GameMap.Coordination currentPosition = getCurrentPosition();
+
+        for (Object i: mapLevel.get(currentPosition)){
+            if (i instanceof Monster && ((Monster) i).getName() == monster.getName()){ return true; }
+        }
+        return false;
     }
 
     public void postBattle(Monster monster){
@@ -122,24 +140,8 @@ public class Character {
             ArrayList<Object> thisPositionItem = thisMap.get(getCurrentPosition());
 
             if (monster.getItem() != null){ thisPositionItem.add(monster.getItem()); }
-            thisPositionItem.remove(monster);
-
             thisMap.put(getCurrentPosition(), thisPositionItem);
         }
-    }
-
-    /**
-     *
-     * @param monster input of type (Monster)
-     * @return boolean of whether or not monster exist at character's current position
-     */
-    public boolean monsterExist(Monster monster){
-
-        Map<GameMap.Coordination, ArrayList<Object>> mapLevel = getLevelMap();
-        GameMap.Coordination currentPosition = getCurrentPosition();
-
-        if (mapLevel.get(currentPosition).contains(monster)) { return true; }
-        else { return false; }
     }
 
     /**
@@ -157,25 +159,25 @@ public class Character {
                 if ( isLegalMove(new GameMap.Coordination(x,y - 1)) ){
                     setCurrentPosition(x, y-1);
                 } else {
-                    System.out.print("Can't move north");
+                    System.out.print("There's a wall over north\n");
                 } break;
             case "south":
                 if ( isLegalMove(new GameMap.Coordination(x,y + 1)) ){
                     setCurrentPosition(x, y+1);
                 } else {
-                    System.out.print("Can't move south");
+                    System.out.print("There's a wall over south\n");
                 } break;
             case "east":
                 System.out.println(direction);
                 if ( isLegalMove(new GameMap.Coordination(x - 1,y)) ){
                     setCurrentPosition(x-1, y);
                 } else {
-                    System.out.print("Can't move east");
+                    System.out.print("There's a wall over east\n");
                 } break;
             case "west":
                 if ( isLegalMove(new GameMap.Coordination(x + 1,y)) ){
                     setCurrentPosition(x+1, y);
-                } else { System.out.print("Can't move west");
+                } else { System.out.print("There's a wall over west\n");
                 } break;
         }
 
@@ -282,8 +284,11 @@ public class Character {
                     monster.setHp(monster.getHp() - getDamage());
 
                     /* Monster retaliation */
-                    setCurrentHp(potentialTakenDamage);
+                    if (monster.getHp() > 0) { setCurrentHp(potentialTakenDamage); }
+
                     System.out.println("Attacked " + monster.getName());
+                    System.out.println(monster.getName() + " HP is: " + monster.getHp());
+                    System.out.println("Your HP is: " + getCurrentHp() + "/" + getMaxHp());
                 }
                 break;
             case "normal":
@@ -292,8 +297,11 @@ public class Character {
                     monster.setHp(monster.getHp() - getDamage());
 
                     /* Monster retaliation */
-                    setCurrentHp(potentialTakenDamage);
+                    if (monster.getHp() > 0) { setCurrentHp(potentialTakenDamage); }
+
                     System.out.println("Attacked " + monster.getName());
+                    System.out.println(monster.getName() + " HP is: " + monster.getHp());
+                    System.out.println("Your HP is: " + getCurrentHp() + "/" + getMaxHp());
                 }
                 break;
         }
@@ -325,7 +333,6 @@ public class Character {
         Map<GameMap.Coordination, ArrayList<Object>> thisLevel = getLevelMap();
         ArrayList<Object> thisPositionItem = thisLevel.get(thisPosition);
 
-
         if (thisPositionItem.size() == 0){
             System.out.println("Doesn't look like there's much here");
             return;
@@ -334,6 +341,10 @@ public class Character {
         System.out.print("There's something that looks like a ");
         for (Object i: thisPositionItem){
             if (i instanceof Monster){
+                if (((Monster) i).getHp() <= 0){
+                    System.out.print("Dead " + ((Monster) i).getName() + " and a ");
+                    continue;
+                }
                 System.out.print(((Monster) i).getName() + " and a ");
             } else if (i instanceof Item){
                 System.out.print(((Item) i).getName() + " and a ");

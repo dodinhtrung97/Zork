@@ -12,7 +12,12 @@ public class MonsterFactory {
     public ArrayList<GhostMonster> allGhostMonster = new ArrayList<>();
     public ArrayList<Monster> allMonsterList = new ArrayList<>();
 
+    ItemFactory itemFactory = new ItemFactory();
+
     public void setAllMonsters(){
+
+        itemFactory.setAllItems();
+        ArrayList<Potion> potions = itemFactory.allPotions;
 
         /* Monsters don't have Item yet // Ghost monster isWeakTo not yet set */
         NormalMonster monster1 = new NormalMonster();
@@ -28,8 +33,8 @@ public class MonsterFactory {
         monster1.setName("Horny Devil");
         monster1.setDescription("Looks like your everyday Satan spawn");
         monster1.setHp(20);
-        monster1.setDamage(5);
-        monster1.setItems("Small Potion");
+        monster1.setDamage(10);
+        monster1.setItems(potions.get(0));
 
         // Monster 2
         monster2.setType("normal");
@@ -37,7 +42,7 @@ public class MonsterFactory {
         monster2.setDescription("Looks like that asshole back in highschool");
         monster2.setHp(30);
         monster2.setDamage(8);
-        monster2.setItems("Medium Potion");
+        monster2.setItems(potions.get(1));
 
         // Monster 3
         monster3.setType("normal");
@@ -45,7 +50,7 @@ public class MonsterFactory {
         monster3.setDescription("Doesn't look like I know her");
         monster3.setHp(30);
         monster3.setDamage(10);
-        monster3.setItems("Large Potion");
+        monster3.setItems(potions.get(2));
 
         // Ghost 1
         ghost1.setType("ghost");

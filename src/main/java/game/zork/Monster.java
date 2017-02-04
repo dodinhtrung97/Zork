@@ -13,7 +13,7 @@ public class Monster {
     protected String type;
     protected String description;
     protected String name;
-    protected String items;
+    protected Item items;
 
     /* All GETS methods */
     public int getHp(){ return this.hp; }
@@ -26,13 +26,13 @@ public class Monster {
 
     public String getName(){ return this.name; }
 
-    public String getItem(){ return this.items; }
+    public Item getItem(){ return this.items; }
 
 
     /* All SETS methods */
     public void setName(String name){ this.name = name; }
 
-    public void setItems(String items){ this.items = items; }
+    public void setItems(Item items){ this.items = items; }
 
     public void setHp(int hp){ this.hp = hp; }
 
