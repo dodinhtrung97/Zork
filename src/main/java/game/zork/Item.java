@@ -12,6 +12,23 @@ public class Item {
     protected String description;
     protected String name;
 
+    @Override
+    public boolean equals(Object item){
+
+        boolean flag = false;
+
+        if (item instanceof  Item){ flag = ((Item) item).getName() == this.getName(); }
+
+        return flag;
+    }
+
+    @Override
+    public int hashCode(){
+        int hash = 7;
+        hash = 17 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
+        return hash;
+    }
+
     /* All GETS methods */
 
     public String getType(){ return this.type; }

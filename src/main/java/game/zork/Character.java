@@ -246,7 +246,7 @@ public class Character {
      */
     public void drop(Item item){
 
-        if (getInventory().contains(item.getName())) {
+        if (getInventory().contains(item)) {
             /* key and equipment items are required to finish the game */
             if (item.getType().equals("key") || item.getType().equals("equipment")) {
                 System.out.println("I don't think I should drop that");

@@ -15,6 +15,23 @@ public class Monster {
     protected String name;
     protected Item items;
 
+    @Override
+    public boolean equals(Object monster){
+
+        boolean flag = false;
+
+        if (monster instanceof  Monster){ flag = ((Monster) monster).getName() == this.getName(); }
+
+        return flag;
+    }
+
+    @Override
+    public int hashCode(){
+        int hash = 7;
+        hash = 17 * hash + (this.getName() != null ? this.getName().hashCode() : 0);
+        return hash;
+    }
+
     /* All GETS methods */
     public int getHp(){ return this.hp; }
 
