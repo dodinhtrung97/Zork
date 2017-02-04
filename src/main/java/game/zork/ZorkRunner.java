@@ -134,8 +134,11 @@ public class ZorkRunner {
                         if (i.getName().equals(argument)){ player.attack(i); }
                     } break;
                 case "look around":
-                    player.lookAround();
-                    break;
+                    switch (player.getLevel()){
+                        case 1: player.lookAround(gameMap.firstMap); break;
+                        case 2: player.lookAround(gameMap.secondMap); break;
+                        case 3: player.lookAround(gameMap.thirdMap); break;
+                    }
                 case "look at":
                     /* Look in itemFactory */
                     for (Item i: itemFactory.allItems){

@@ -264,6 +264,7 @@ public class Character {
 
         /* Add item to inventory if pass itemExist test */
         getInventory().add(item);
+        System.out.println(getInventory());
         setInventory(getInventory());
     }
 
@@ -327,10 +328,9 @@ public class Character {
 
     /* Look at function is implemented inside zorkRunner */
 
-    public void lookAround(){
+    public void lookAround(Map<GameMap.Coordination, ArrayList<Object>> thisLevel){
 
         GameMap.Coordination thisPosition = getCurrentPosition();
-        Map<GameMap.Coordination, ArrayList<Object>> thisLevel = getLevelMap();
         ArrayList<Object> thisPositionItem = thisLevel.get(thisPosition);
 
         if (thisPositionItem.size() == 0){
@@ -350,6 +350,6 @@ public class Character {
                 System.out.print(((Item) i).getName() + " and a ");
             }
         }
-        System.out.print(" over here.\n");
+        System.out.print("over here.\n");
     }
 }
