@@ -142,12 +142,10 @@ public class ZorkRunner {
                             break;
                         }
                     }
-
+                    /* Print something */
                     if (player.getCurrentHp() == initPlayerHp) {
-                        /* Print something */
                         System.out.println("I don't think my stomach will agree with that");
-                    }
-                    break;
+                    } break;
                 case "equip":
                     /* If nothing in inventory then for loop wont get executed */
                     if (player.getInventory().size() == 0) { System.out.println("I have nothing to equip"); }
@@ -158,10 +156,11 @@ public class ZorkRunner {
                             /* Enforce equipment class on item */
                             Equipment equipment = ((Equipment) i);
                             player.equip(equipment);
-                        } else {
-                            /* Print something */
-                            System.out.println("I can't equip that item");
                         }
+                    }
+                    /* Print something */
+                    if (player.getEquippedItem() == null) {
+                        System.out.println("I don't think my stomach will agree with that");
                     } break;
                 case "unequip":
                     /* Check that item exists in equipment list */

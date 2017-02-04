@@ -15,7 +15,7 @@ class GhostMonster extends Monster {
 
     public boolean playerIsEquipped(game.zork.Character player){
 
-        if (player.getEquippedItem().getName().equals(getIsWeakTo())){ return true; }
+        if (player.getEquippedItem() != null && player.getEquippedItem().getName().equals(getIsWeakTo())){ return true; }
         else { return false; }
     }
 
