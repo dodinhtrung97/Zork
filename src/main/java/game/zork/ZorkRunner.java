@@ -92,23 +92,24 @@ public class ZorkRunner {
                             "-drop <item>:\n" +
                             "\tSelf explanatory\n" +
                             "-attack <monster name>:\n" +
-                            "\tAttack monster, monster name is mentioned every time the player enters a room, or call \"look\"\n" +
-                            "-attack <monster name> with <item>:\n" +
-                            "\tAttack ghost type monster, similar idea as the normal attack function\n" +
-                            "-spare <monster name>:\n" +
-                            "\tSpare a monster if its hp is below your hp\n" +
-                            "-eat <item name>:\n" +
+                            "\tAttack monster, monster name is mentioned when player call \"look around\" if they exist\n" +
+                            "-flee <monster name>:\n" +
+                            "\tFlee from a monster\n" +
+                            "-use <item name>:\n" +
                             "\tConsume whatever the user inputs, if <item name> is potion (and user has potion(s)), restore user's HP\n" +
                             "-go <direcion>:\n" +
                             "\tAdvance 1 step towards the given direction (front, back, left, right)\n" +
+                            "-equip <Equipment>:\n" +
+                            "\tEquip an item, can only equip 1 item at a time, user must unequip his item before equiping a new onne\n" +
+                            "-unequip <Equipment>:\n" +
+                            "\tUnequip an equipped item\n" +
                             "-stat:\n" +
                             "\tPrint player's stat including: HP, Number of potions, attack, defend, equipments status\n" +
                             "-key:\n" +
                             "\tPrint the current pieces of paper the player has\n" +
                             "\tPrint the current story collected and formed by the current pieces of paper possessed\n" +
                             "-map:\n" +
-                            "\tPrint map and player's location.\n" +
-                            "\tPrint location of key items within the map if discovered through sparing monsters.");
+                            "\tPrint map and player's location.");
                     break;
                 case "stat":
                     /* Use print instead of println here to print on the same line */
